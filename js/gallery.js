@@ -64,7 +64,7 @@ const images = [
   },
 ];
 
-function deneme(items) {
+function createGalleryMarkup(items) {
   return items
     .map(
       (item) => `
@@ -82,14 +82,16 @@ function deneme(items) {
     .join("");
 }
 
-const galeri = document.querySelector(".gallery");
+const gallery = document.querySelector(".gallery");
 
-galeri.innerHTML = deneme(images);
+gallery.innerHTML = createGalleryMarkup(images);
 
-galeri.addEventListener("click", function (event) {
-  const instance = basicLightbox.create(`
+gallery.addEventListener("click", function (event) {
+  if (event.target.nodeName == "IMG") {
+    const instance = basicLightbox.create(`
     <img src=${event.target.dataset.source} width="800" height="600">
 `);
 
-  instance.show();
+    instance.show();
+  }
 });
